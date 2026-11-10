@@ -1,0 +1,239 @@
+{
+  "性质": "已知问题未修复的脱敏研究备案；发布状态以README及仓库记录为准",
+  "制作时间": "2026-11-10T18:54:16.294101+08:00",
+  "生产入口核对": "systemd ExecStart 指向所核查生产版本/code/executor_v2.py；inactive / disabled；仅只读核查",
+  "来源说明": "文件直接通过SSH在内存读取；不保存真实服务器、主机名及个人绝对路径；来源定位以生产版本/code的相对路径表示",
+  "生产版本标识": "public-research-snapshot",
+  "交接五项SHA核对": "全部一致",
+  "来源范围": "从实际执行器入口递归解析所有import/from的本地模块，包含函数内及条件导入；12个模块；不代表外部SDK完整源码归档",
+  "文件": [
+    {
+      "文件": "src/c_runtime.py",
+      "来源": "生产版本/code/c_runtime.py",
+      "原始SHA256": "9dc1580181954b32053cfe4baa910e2c23682526035c45a77c02e14287668428",
+      "候选SHA256": "9dc1580181954b32053cfe4baa910e2c23682526035c45a77c02e14287668428",
+      "字节数": 19687,
+      "脱敏变更": [],
+      "本地依赖": [
+        "dynamic_candidates.py",
+        "executor_v2.py",
+        "switch_candidates.py",
+        "v2_protocol.py",
+        "v2_safety.py"
+      ]
+    },
+    {
+      "文件": "src/dynamic_candidates.py",
+      "来源": "生产版本/code/dynamic_candidates.py",
+      "原始SHA256": "1e2ef24ccc8b6d94c82f9bbf6aba64aad7e583a7e789c3fbdea5261a8e2cbd5f",
+      "候选SHA256": "1e2ef24ccc8b6d94c82f9bbf6aba64aad7e583a7e789c3fbdea5261a8e2cbd5f",
+      "字节数": 12024,
+      "脱敏变更": [],
+      "本地依赖": [
+        "scanner.py"
+      ]
+    },
+    {
+      "文件": "src/executor_v2.py",
+      "来源": "生产版本/code/executor_v2.py",
+      "原始SHA256": "993e28bc1c90e43b2147550451beaa18d14b71529a35898bcfbfba834fb8599f",
+      "候选SHA256": "e2936a2ee0c09741792c5b63868acbe49a444c0564f8f2070f2009e118801da6",
+      "字节数": 78133,
+      "脱敏变更": [
+        {
+          "类别": "账户或builder地址",
+          "替换次数": 1,
+          "占位": "REDACTED_ACCOUNT_ADDRESS"
+        },
+        "补充脱敏：历史说明改为机制描述，移除历史时点及事故观测；仅 docstring 改变，未作功能修复",
+        "补充脱敏：市场历史观测示例改写为字段与继承机制说明，非功能修复"
+      ],
+      "本地依赖": [
+        "c_runtime.py",
+        "ledger.py",
+        "v2_protocol.py",
+        "v2_safety.py"
+      ]
+    },
+    {
+      "文件": "src/fill_history.py",
+      "来源": "生产版本/code/fill_history.py",
+      "原始SHA256": "d042fa292638f791d863ce59fb4a7feb51958310998a957661762784ac4c0c92",
+      "候选SHA256": "d042fa292638f791d863ce59fb4a7feb51958310998a957661762784ac4c0c92",
+      "字节数": 2499,
+      "脱敏变更": [],
+      "本地依赖": [
+        "ledger.py"
+      ]
+    },
+    {
+      "文件": "src/ledger.py",
+      "来源": "生产版本/code/ledger.py",
+      "原始SHA256": "4cc7287eef7c6993e402edb0ee6530b15ab2f982c6c412e3b0dbd33f39f26726",
+      "候选SHA256": "4cc7287eef7c6993e402edb0ee6530b15ab2f982c6c412e3b0dbd33f39f26726",
+      "字节数": 43325,
+      "脱敏变更": [],
+      "本地依赖": [
+        "fill_history.py"
+      ]
+    },
+    {
+      "文件": "src/one_time_recovery.py",
+      "来源": "生产版本/code/one_time_recovery.py",
+      "原始SHA256": "47fa7839a6fdda974b2188afde06439b4b17c531a51ff5c1b937684114f5e347",
+      "候选SHA256": "15d968b08b7154ade39139a3ee6334ed6e3ed75a809bf119b105727fd7b2e28c",
+      "字节数": 7709,
+      "脱敏变更": [
+        {
+          "类别": "历史一次性恢复批次标识",
+          "占位": "REDACTED_RECOVERY_BATCH_ID",
+          "影响": "历史批次匹配身份改变"
+        },
+        {
+          "类别": "历史恢复特例的市场/token、价格、数量、原库存数量、保留成本及队伍标签",
+          "替换位置数": 12,
+          "占位": "无效市场/token/队伍占位；取消市场参数为无效负值；价格、数量及保留成本为零",
+          "影响": "参数脱敏改变库存与成本匹配、报价、提交及取消目标等运行行为；保持语法、函数结构及原控制流程；不泛化为新交易功能；备案不要求可直接运行"
+        }
+      ],
+      "本地依赖": [
+        "v2_safety.py"
+      ]
+    },
+    {
+      "文件": "src/scanner.py",
+      "来源": "生产版本/code/scanner.py",
+      "原始SHA256": "2b6025aad3aee46d89912ffa446541b861c1c1276f046bed24b3a5c05af256d9",
+      "候选SHA256": "2eafc35dc1c681d5fdc04dcf7ecb8efc3e37a802d3efa9f18a9f03458e6f7b89",
+      "字节数": 21156,
+      "脱敏变更": [
+        "补充脱敏：市场历史观测示例改写为字段与继承机制说明，非功能修复"
+      ],
+      "本地依赖": [
+        "executor_v2.py",
+        "v2_protocol.py"
+      ]
+    },
+    {
+      "文件": "src/switch_candidates.py",
+      "来源": "生产版本/code/switch_candidates.py",
+      "原始SHA256": "cb50a49b575c64f62964076c722c84f66436118047578469ce042d4aeb44ecb4",
+      "候选SHA256": "ab74f6373da4fabac2cac1ddf32aaa8638d6cb18bd09b14ddcaac33cbba76f91",
+      "字节数": 33947,
+      "脱敏变更": [
+        {
+          "类别": "实际服务标识",
+          "占位": "REDACTED_SERVICE_NAME",
+          "影响": "服务管理目标不可直接用于原部署；控制流程保留"
+        }
+      ],
+      "本地依赖": [
+        "executor_v2.py",
+        "scanner.py",
+        "v2_persistence.py",
+        "v2_protocol.py",
+        "v2_safety.py"
+      ]
+    },
+    {
+      "文件": "src/v2_events.py",
+      "来源": "生产版本/code/v2_events.py",
+      "原始SHA256": "85ed714a27187795ecc2861587d648378b651229d0f3c7ae8415726be54b4ccf",
+      "候选SHA256": "8b96946e2ac89b112f8f238ae0cccb4c970d1f86e8d6ad21f060ec1bc8d8bf6f",
+      "字节数": 3152,
+      "脱敏变更": [
+        "补充脱敏：历史说明改为机制描述，移除历史时点及事故观测；仅 docstring 改变，未作功能修复"
+      ],
+      "本地依赖": []
+    },
+    {
+      "文件": "src/v2_persistence.py",
+      "来源": "生产版本/code/v2_persistence.py",
+      "原始SHA256": "86d3b714bef8a854600dfef2baa9e8bd5afe8394b688a9ff86b34bde4322c334",
+      "候选SHA256": "74d5f6e89cf4f7a1ed83c7e7e26f106b25d352ea2077a7ad6ed64aaeef7c17ac",
+      "字节数": 4935,
+      "脱敏变更": [
+        "补充脱敏：历史说明改为机制描述，移除历史时点及事故观测；仅 docstring 改变，未作功能修复"
+      ],
+      "本地依赖": []
+    },
+    {
+      "文件": "src/v2_protocol.py",
+      "来源": "生产版本/code/v2_protocol.py",
+      "原始SHA256": "c060a4336e3be120b2862dd120576359ea5d428f0a9a8faa418c091cebcd2443",
+      "候选SHA256": "ebc5c8231359908b877a6ec334425b6762c4054fdac37a5e4c92e9093616943c",
+      "字节数": 38039,
+      "脱敏变更": [
+        "补充脱敏：历史说明改为机制描述，移除历史时点及事故观测；仅 docstring 改变，未作功能修复",
+        {
+          "类别": "内部复验资料引用",
+          "占位": "public-research-evidence/扫描复验说明.md",
+          "影响": "仅注释中的证据定位变为公开标识"
+        }
+      ],
+      "本地依赖": []
+    },
+    {
+      "文件": "src/v2_safety.py",
+      "来源": "生产版本/code/v2_safety.py",
+      "原始SHA256": "c24efde1c0e44222dfa2162c9d19c97e4c0f20a6a9e6a1056d94a8cf707c1ed8",
+      "候选SHA256": "807710cb807730158b332bca2f68a272bc8f05446eb9ccda67897fdc62a53a24",
+      "字节数": 210094,
+      "脱敏变更": [
+        {
+          "类别": "账户或builder地址",
+          "替换次数": 1,
+          "占位": "REDACTED_ACCOUNT_ADDRESS"
+        },
+        "补充脱敏：历史说明改为机制描述，移除历史时点及事故观测；仅 docstring 改变，未作功能修复"
+      ],
+      "本地依赖": [
+        "c_runtime.py",
+        "executor_v2.py",
+        "fill_history.py",
+        "ledger.py",
+        "one_time_recovery.py",
+        "v2_events.py",
+        "v2_persistence.py",
+        "v2_protocol.py"
+      ]
+    }
+  ],
+  "外部依赖观测版本": {
+    "websocket-client": "1.9.2",
+    "hyperliquid-python-sdk": "0.24.0",
+    "eth-account": "0.13.7",
+    "msgpack": "1.2.4"
+  },
+  "保留公开URL": [
+    "https://api.hyperliquid.xyz",
+    "https://api.hyperliquid.xyz/info",
+    "https://api.monarch.fast/marina/outcome-markets/current-incentives",
+    "https://api.monarch.fast/marina/outcome-markets/scores?market_id={}",
+    "https://docs.outcome.xyz/sdk/reference/trading-adapter",
+    "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint",
+    "https://pd-liquidity-rewards-payouts.outcome-e91.workers.dev",
+    "https://raw.githubusercontent.com/Outcome-xyz/hip4/main/src/adapter/hyperliquid/pricing.ts"
+  ],
+  "验证": "全部12模块AST解析和内存compile；字面量归一后AST结构与修改前一致；历史市场/token、价格、数量组合、保留成本及队伍标签残留扫描；README/docs摘要不变；未import或执行源码、未运行交易或完整测试；SHA256SUMS最后重建并逐项核验",
+  "示例配置": "只从config_c.json字段结构生成，字符串空、布尔false、数字0、数组空；不复制真实标量参数、授权、状态或历史。不能作为实盘参数使用。",
+  "排除": "测试、历史实验候选、备份、SDK源码、密钥与认证材料、实际授权和activation、数据库/账本、状态、日志、交易/奖励/对话历史；旁路运维脚本未纳入执行器闭包",
+  "已知问题": [
+    "授权窗口一致性及fallback提交/入账不一致",
+    "非open状态被误判为终态的风险",
+    "市场隔离helper未完整接入调用链",
+    "同key回填跳过不可变证据一致性校验",
+    "state大小边界、归档append原子性与损坏恢复未解决"
+  ],
+  "限制": "源码脱敏会改变硬编码账户和builder身份；不替代运行授权、不保证可运行、未修复已知问题、不证明安全或盈利。正则及AST检查不能证明没有未知格式敏感信息。 历史恢复特例参数已改为明确无效占位/零值，改变原行为；保留函数结构和原控制流程，不增加交易功能；备案不要求可直接运行。",
+  "补充脱敏核查": {
+    "范围": "全部12个源码模块，含恢复模块及其他11模块；未发现第13模块，未扩展归档范围",
+    "直接关联变更": [
+      "src/one_time_recovery.py"
+    ],
+    "其他模块": "逐一核查，恢复调用与通用参数保留，未发现同组历史具体参数",
+    "文档边界": "README和docs未编辑；旧脱敏范围陈述未同步，本次以MANIFEST和根目录技术说明为准",
+    "历史说明": "历史事故 docstring 改写为机制描述；本轮去除 docstring 后 AST 一致，非功能修复；既有恢复常量脱敏影响另行保留说明。",
+    "公开快照标识": "public-research-snapshot"
+  }
+}
